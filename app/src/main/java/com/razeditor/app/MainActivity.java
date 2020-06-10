@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -57,10 +58,9 @@ public class MainActivity extends BaseActivity implements OnPhotoEditorListener,
         HairBSFragment.HairListener,MaksBSFragment.MaksListener, GraphicsBSFragment.GraphicsListener, ActorsBSFragment.ActorsListener, SunglassBSFragment.SunglassListener,
         FrameBSFragment.FrameListener,
         EditingToolsAdapter.OnItemSelected, FilterListener {
-    private AdView mAdView;
     InterstitialAd mInterstitialAd;
     private InterstitialAd interstitial;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "MainTag";
     public static final String EXTRA_IMAGE_PATHS = "extra_image_paths";
     private static final int CAMERA_REQUEST = 52;
     private static final int PICK_REQUEST = 53;
@@ -99,10 +99,14 @@ public class MainActivity extends BaseActivity implements OnPhotoEditorListener,
         super.onCreate(savedInstanceState);
         makeFullScreen();
         setContentView(R.layout.activity_main);
-       // banner ads nsr
-        mAdView = findViewById(R.id.adView);
+
+        // khalid code
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        adView.loadAd(adRequest);
 
 
         connectionChecker = new ConnectionChecker(this);
@@ -529,14 +533,11 @@ public class MainActivity extends BaseActivity implements OnPhotoEditorListener,
 
 
 
-        final View adContiner = findViewById(R.id.banner);
 
-
-
-                //Admob Banner
 
 
     }
+
     public void displayInterstitial() {
 // If Ads are loaded, show Interstitial else show nothing.
         if (interstitial.isLoaded()) {
